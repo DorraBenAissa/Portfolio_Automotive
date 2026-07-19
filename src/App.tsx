@@ -16,6 +16,10 @@ import { Scenarios } from './pages/interface-adaptative/Scenarios'
 import { Personas } from './pages/interface-adaptative/Personas'
 import { Prototype } from './pages/interface-adaptative/Prototype'
 import { Evaluation } from './pages/interface-adaptative/Evaluation'
+import { ProjetTheseEvolution } from './pages/projet-these/Evolution'
+import { Contributions } from './pages/Contributions'
+import { DashboardRecherche } from './pages/DashboardRecherche'
+import { EthiqueTransparence } from './pages/EthiqueTransparence'
 
 function App() {
   return (
@@ -37,6 +41,10 @@ function App() {
         <Route path="/interface-adaptative/personas" element={<Personas />} />
         <Route path="/interface-adaptative/prototype" element={<Prototype />} />
         <Route path="/interface-adaptative/evaluation" element={<Evaluation />} />
+        <Route path="/projet-these/evolution" element={<ProjetTheseEvolution />} />
+        <Route path="/contributions" element={<Contributions />} />
+        <Route path="/dashboard-recherche" element={<DashboardRecherche />} />
+        <Route path="/ethique-et-transparence" element={<EthiqueTransparence />} />
       </Route>
     </Routes>
   )
