@@ -1,12 +1,20 @@
 import { experts } from '../../data/experts'
 import { expertThemes, expertMatrix } from '../../data/expertThemes'
 import { DataStatusBadge } from '../../components/StatusBadge'
+import { ArticleSidebar } from '../../components/ArticleTools'
 import { usePageTitle } from '../../hooks/usePageTitle'
+
+const sections = [
+  { id: 'profils', label: 'Profils des experts' },
+  { id: 'themes', label: 'Thèmes des discussions' },
+  { id: 'matrice', label: 'Matrice de synthèse' },
+]
 
 export function Experts() {
   usePageTitle('Paroles d’experts')
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-16">
+      <ArticleSidebar sections={sections} pageTitle="Paroles d’experts" />
       <p className="text-sm font-medium text-stone-500 dark:text-stone-400 mb-3">Recherche / Paroles d’experts</p>
       <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">Paroles d’experts</h1>
       <p className="mt-4 text-stone-600 dark:text-stone-300 max-w-2xl">
@@ -20,7 +28,7 @@ export function Experts() {
         l’autorisation de publication n’est pas confirmée.
       </div>
 
-      <section className="mt-12">
+      <section id="profils" className="mt-12">
         <h2 className="text-lg font-semibold mb-6">Profils des experts</h2>
         <div className="grid sm:grid-cols-3 gap-4">
           {experts.map((e) => (
@@ -39,7 +47,7 @@ export function Experts() {
         </div>
       </section>
 
-      <section className="mt-14">
+      <section id="themes" className="mt-14">
         <h2 className="text-lg font-semibold mb-6">Thèmes des discussions</h2>
         <div className="space-y-8">
           {expertThemes.map((t) => (
@@ -78,7 +86,7 @@ export function Experts() {
         </div>
       </section>
 
-      <section className="mt-14">
+      <section id="matrice" className="mt-14">
         <h2 className="text-lg font-semibold mb-2">Matrice de synthèse des experts</h2>
         <p className="text-sm text-stone-500 dark:text-stone-400 mb-6">
           Structure prête pour intégration — aucune opinion n’est inventée, toutes les cellules restent en

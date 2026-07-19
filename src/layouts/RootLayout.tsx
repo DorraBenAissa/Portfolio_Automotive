@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet } from 'react-router-dom'
 import { useViewMode } from '../context/ViewModeContext'
 import { NavDropdown } from './NavDropdown'
 import { GlobalSearch } from '../components/GlobalSearch'
+import { ReadingProgress } from '../components/ArticleTools'
 
 const rechercheItems = [
   { label: 'Vue d’ensemble', to: '/recherche' },
@@ -132,6 +133,7 @@ export function RootLayout() {
           </nav>
         )}
       </header>
+      <ReadingProgress />
 
       <main className="flex-1">
         <Outlet />

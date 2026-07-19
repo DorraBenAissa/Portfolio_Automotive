@@ -1,11 +1,15 @@
 import { hypotheses, hypothesesSynthesisNote } from '../../data/hypotheses'
 import { StatusBadge } from '../../components/StatusBadge'
+import { ArticleSidebar } from '../../components/ArticleTools'
 import { usePageTitle } from '../../hooks/usePageTitle'
+
+const sections = hypotheses.map((h) => ({ id: h.id, label: h.label }))
 
 export function Hypotheses() {
   usePageTitle('Hypothèses et validation')
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 py-16">
+      <ArticleSidebar sections={sections} pageTitle="Hypothèses et validation" />
       <p className="text-sm font-medium text-stone-500 dark:text-stone-400 mb-3">Recherche / Hypothèses</p>
       <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">Hypothèses et validation</h1>
 
@@ -15,7 +19,7 @@ export function Hypotheses() {
 
       <div className="mt-10 space-y-6">
         {hypotheses.map((h) => (
-          <article key={h.id} className="rounded-2xl border border-stone-200 dark:border-stone-800 p-6 sm:p-8">
+          <article key={h.id} id={h.id} className="rounded-2xl border border-stone-200 dark:border-stone-800 p-6 sm:p-8 scroll-mt-24">
             <div className="flex items-start justify-between gap-4 flex-wrap">
               <h2 className="font-semibold text-lg">{h.label}</h2>
               <StatusBadge status={h.status} />

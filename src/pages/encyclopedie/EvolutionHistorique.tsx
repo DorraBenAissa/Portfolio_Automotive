@@ -4,7 +4,14 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { timelinePeriods, timelineEntries, disappearedTransformedElements } from '../../data/timeline'
 import { oscillationData } from '../../data/oscillation'
 import { DataStatusBadge } from '../../components/StatusBadge'
+import { ArticleSidebar } from '../../components/ArticleTools'
 import { usePageTitle } from '../../hooks/usePageTitle'
+
+const sections = [
+  { id: 'frise', label: 'Frise interactive' },
+  { id: 'oscillations', label: 'Oscillations' },
+  { id: 'elements', label: 'Éléments disparus/transformés' },
+]
 
 export function EvolutionHistorique() {
   usePageTitle('Évolution historique')
@@ -14,6 +21,7 @@ export function EvolutionHistorique() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-16">
+      <ArticleSidebar sections={sections} pageTitle="L’évolution des tableaux de bord automobiles" />
       <p className="text-sm font-medium text-stone-500 dark:text-stone-400 mb-3">Encyclopédie / Évolution</p>
       <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">
         L’évolution des tableaux de bord automobiles
@@ -29,7 +37,7 @@ export function EvolutionHistorique() {
         Voir l’analyse comparative des constructeurs →
       </Link>
 
-      <section className="mt-12" aria-label="Frise interactive">
+      <section id="frise" className="mt-12" aria-label="Frise interactive">
         <div className="flex gap-1 rounded-full border border-stone-200 dark:border-stone-800 p-1">
           {timelinePeriods.map((p) => (
             <button
@@ -69,7 +77,7 @@ export function EvolutionHistorique() {
         </div>
       </section>
 
-      <section className="mt-14">
+      <section id="oscillations" className="mt-14">
         <h2 className="text-lg font-semibold">Oscillations entre simplicité et complexité</h2>
         <p className="text-sm text-stone-500 dark:text-stone-400 mt-1 mb-6">
           Illustration conceptuelle construite à partir des caractéristiques qualitatives de chaque période —
@@ -93,7 +101,7 @@ export function EvolutionHistorique() {
         <p className="text-xs text-stone-400 mt-2">Recherche et analyse : Dorra Ben Aissa</p>
       </section>
 
-      <section className="mt-14">
+      <section id="elements" className="mt-14">
         <h2 className="text-lg font-semibold mb-4">Éléments disparus, transformés ou réapparus</h2>
         <ul className="space-y-2">
           {disappearedTransformedElements.map((el) => (

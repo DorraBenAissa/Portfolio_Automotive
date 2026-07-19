@@ -1,14 +1,22 @@
 import { surveyResults, whatDriversAskFor } from '../../data/surveyResults'
 import { DataStatusBadge } from '../../components/StatusBadge'
+import { ArticleSidebar } from '../../components/ArticleTools'
 import { usePageTitle } from '../../hooks/usePageTitle'
 
 const headlineStat = surveyResults.find((r) => r.id === 'urgence-masquage')!
 const otherResults = surveyResults.filter((r) => r.id !== 'urgence-masquage')
 
+const sections = [
+  { id: 'stat-cle', label: 'Résultat clé' },
+  { id: 'autres-categories', label: 'Autres catégories' },
+  { id: 'demandes', label: 'Ce que demandent les conducteurs' },
+]
+
 export function ResultatsConducteurs() {
   usePageTitle('Résultats conducteurs')
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-16">
+      <ArticleSidebar sections={sections} pageTitle="Résultats du questionnaire conducteurs" />
       <p className="text-sm font-medium text-stone-500 dark:text-stone-400 mb-3">Recherche / Résultats conducteurs</p>
       <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">Résultats du questionnaire conducteurs</h1>
       <p className="mt-4 text-stone-600 dark:text-stone-300 max-w-2xl">
@@ -16,7 +24,7 @@ export function ResultatsConducteurs() {
         encore intégrées depuis le mémoire sont explicitement marquées « à compléter », plutôt qu’estimées.
       </p>
 
-      <section className="mt-10 rounded-2xl border-2 border-stone-900 dark:border-white p-6 sm:p-10 text-center">
+      <section id="stat-cle" className="mt-10 rounded-2xl border-2 border-stone-900 dark:border-white p-6 sm:p-10 text-center">
         <p className="text-5xl sm:text-6xl font-semibold tracking-tight">{headlineStat.value}%</p>
         <p className="mt-3 text-base sm:text-lg font-medium max-w-xl mx-auto">{headlineStat.question}</p>
         <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">{headlineStat.note}</p>
@@ -25,7 +33,7 @@ export function ResultatsConducteurs() {
         </div>
       </section>
 
-      <section className="mt-14">
+      <section id="autres-categories" className="mt-14">
         <h2 className="text-lg font-semibold mb-6">Autres catégories du questionnaire</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           {otherResults.map((r) => (
@@ -43,7 +51,7 @@ export function ResultatsConducteurs() {
         </div>
       </section>
 
-      <section className="mt-14">
+      <section id="demandes" className="mt-14">
         <h2 className="text-lg font-semibold mb-4">Ce que les conducteurs demandent</h2>
         <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2">
           {whatDriversAskFor.map((item) => (
