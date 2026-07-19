@@ -10,6 +10,9 @@ import { ResultatsConducteurs } from './pages/recherche/ResultatsConducteurs'
 import { Experts } from './pages/recherche/Experts'
 import { Discussion } from './pages/recherche/Discussion'
 import { Hypotheses } from './pages/recherche/Hypotheses'
+import { Principes } from './pages/interface-adaptative/Principes'
+import { Commandes } from './pages/interface-adaptative/Commandes'
+import { Scenarios } from './pages/interface-adaptative/Scenarios'
 
 function App() {
   return (
@@ -25,6 +28,9 @@ function App() {
         <Route path="/recherche/experts" element={<Experts />} />
         <Route path="/recherche/discussion" element={<Discussion />} />
         <Route path="/recherche/hypotheses" element={<Hypotheses />} />
+        <Route path="/interface-adaptative/principes" element={<Principes />} />
+        <Route path="/interface-adaptative/commandes" element={<Commandes />} />
+        <Route path="/interface-adaptative/scenarios" element={<Scenarios />} />
       </Route>
     </Routes>
   )
