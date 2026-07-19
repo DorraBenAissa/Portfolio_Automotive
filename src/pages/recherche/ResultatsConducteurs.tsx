@@ -1,10 +1,12 @@
 import { surveyResults, whatDriversAskFor } from '../../data/surveyResults'
 import { DataStatusBadge } from '../../components/StatusBadge'
+import { usePageTitle } from '../../hooks/usePageTitle'
 
 const headlineStat = surveyResults.find((r) => r.id === 'urgence-masquage')!
 const otherResults = surveyResults.filter((r) => r.id !== 'urgence-masquage')
 
 export function ResultatsConducteurs() {
+  usePageTitle('Résultats conducteurs')
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-16">
       <p className="text-sm font-medium text-stone-500 dark:text-stone-400 mb-3">Recherche / Résultats conducteurs</p>

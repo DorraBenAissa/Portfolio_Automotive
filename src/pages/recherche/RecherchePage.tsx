@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { researchPhases, centralStatement } from '../../data/researchPhases'
+import { usePageTitle } from '../../hooks/usePageTitle'
 
 const subPages = [
   { to: '/recherche/cadre-theorique', label: 'Cadre théorique', description: 'Simplicité, complexité, simplexité, cognition.' },
@@ -13,6 +14,7 @@ const subPages = [
 ]
 
 export function RecherchePage() {
+  usePageTitle('Recherche')
   const [active, setActive] = useState(researchPhases[0].id)
   const activePhase = researchPhases.find((p) => p.id === active)!
 

@@ -7,8 +7,10 @@ import {
   collaborationInterests,
   collaborationDisclaimer,
 } from '../../data/thesisEvolution'
+import { usePageTitle } from '../../hooks/usePageTitle'
 
 export function ProjetTheseEvolution() {
+  usePageTitle('Du mémoire à la thèse')
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 py-16">
       <p className="text-sm font-medium text-stone-500 dark:text-stone-400 mb-3">Projet doctoral</p>

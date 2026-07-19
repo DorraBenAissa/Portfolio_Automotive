@@ -2,6 +2,7 @@ import { dashboardMetrics } from '../data/bibliography'
 import { manufacturerAnalyses } from '../data/manufacturers'
 import { timelinePeriods } from '../data/timeline'
 import { drivingScenarios } from '../data/workflows'
+import { usePageTitle } from '../hooks/usePageTitle'
 
 const metricCards: { label: string; value: number | string | null }[] = [
   { label: 'Véhicules étudiés', value: dashboardMetrics.vehiculesEtudies },
@@ -16,6 +17,7 @@ const metricCards: { label: string; value: number | string | null }[] = [
 ]
 
 export function DashboardRecherche() {
+  usePageTitle('Dashboard recherche')
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-16">
       <p className="text-sm font-medium text-stone-500 dark:text-stone-400 mb-3">Dashboard recherche</p>

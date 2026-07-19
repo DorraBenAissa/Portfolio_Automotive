@@ -1,7 +1,9 @@
 import { hypotheses, hypothesesSynthesisNote } from '../../data/hypotheses'
 import { StatusBadge } from '../../components/StatusBadge'
+import { usePageTitle } from '../../hooks/usePageTitle'
 
 export function Hypotheses() {
+  usePageTitle('Hypothèses et validation')
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 py-16">
       <p className="text-sm font-medium text-stone-500 dark:text-stone-400 mb-3">Recherche / Hypothèses</p>

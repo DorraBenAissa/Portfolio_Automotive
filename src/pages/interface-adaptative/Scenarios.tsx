@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { drivingScenarios, storyboardSequence, defaultDrivingContext, type DrivingContext } from '../../data/workflows'
 import { storyboards } from '../../data/storyboards'
 import { computeInterfaceState } from '../../lib/ruleEngine'
+import { usePageTitle } from '../../hooks/usePageTitle'
 
 const storyboardFields: { key: keyof typeof storyboards[number]; stepLabel: string }[] = [
   { key: 'situation', stepLabel: 'Situation' },
@@ -44,6 +45,7 @@ function ToggleRow<T extends string>({
 }
 
 export function Scenarios() {
+  usePageTitle('Scénarios adaptatifs')
   const [context, setContext] = useState<DrivingContext>(defaultDrivingContext)
   const state = useMemo(() => computeInterfaceState(context), [context])
 

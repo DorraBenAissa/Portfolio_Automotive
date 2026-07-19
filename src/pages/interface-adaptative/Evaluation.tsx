@@ -1,6 +1,8 @@
 import { strengths, limitations, evaluationPerspectives } from '../../data/evaluationCriteria'
+import { usePageTitle } from '../../hooks/usePageTitle'
 
 export function Evaluation() {
+  usePageTitle('Évaluation critique')
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 py-16">
       <p className="text-sm font-medium text-stone-500 dark:text-stone-400 mb-3">Interface adaptative / Évaluation</p>

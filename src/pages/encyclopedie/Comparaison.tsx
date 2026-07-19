@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom'
 import { manufacturerAnalyses, manufacturerAnalysisDisclaimer } from '../../data/manufacturers'
+import { usePageTitle } from '../../hooks/usePageTitle'
 
 export function Comparaison() {
+  usePageTitle('Comparaison constructeurs')
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-16">
       <p className="text-sm font-medium text-stone-500 dark:text-stone-400 mb-3">Encyclopédie / Comparaison</p>

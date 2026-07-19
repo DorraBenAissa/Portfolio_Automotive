@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
+import { usePageTitle } from '../hooks/usePageTitle'
 
 export function Home() {
+  usePageTitle('Accueil')
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6 py-20 sm:py-28">
       <p className="text-sm font-medium text-stone-500 dark:text-stone-400 mb-4">Automotive UX Research</p>

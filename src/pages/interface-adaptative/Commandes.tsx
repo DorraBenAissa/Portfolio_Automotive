@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { criticalityLevels, vehicleCommands, humanMachineSoftwareAiMatrix, humanMachinePrinciple } from '../../data/commands'
 import type { CriticalityLevel } from '../../types/command'
+import { usePageTitle } from '../../hooks/usePageTitle'
 
 const matrixGroups: { key: keyof typeof humanMachineSoftwareAiMatrix; title: string }[] = [
   { key: 'conducteur', title: 'Conducteur' },
@@ -10,6 +11,7 @@ const matrixGroups: { key: keyof typeof humanMachineSoftwareAiMatrix; title: str
 ]
 
 export function Commandes() {
+  usePageTitle('Référentiel des commandes')
   const [filter, setFilter] = useState<CriticalityLevel | 'all'>('all')
   const filtered = filter === 'all' ? vehicleCommands : vehicleCommands.filter((c) => c.criticality === filter)
 

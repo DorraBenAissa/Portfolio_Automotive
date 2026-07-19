@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { personas } from '../../data/personas'
+import { usePageTitle } from '../../hooks/usePageTitle'
 
 export function Personas() {
+  usePageTitle('Personas')
   const [openId, setOpenId] = useState<string | null>(personas[0]?.id ?? null)
 
   return (

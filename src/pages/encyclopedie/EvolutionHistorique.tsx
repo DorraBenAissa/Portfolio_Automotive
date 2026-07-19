@@ -4,8 +4,10 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { timelinePeriods, timelineEntries, disappearedTransformedElements } from '../../data/timeline'
 import { oscillationData } from '../../data/oscillation'
 import { DataStatusBadge } from '../../components/StatusBadge'
+import { usePageTitle } from '../../hooks/usePageTitle'
 
 export function EvolutionHistorique() {
+  usePageTitle('Évolution historique')
   const [activePeriod, setActivePeriod] = useState(timelinePeriods[0].id)
   const period = timelinePeriods.find((p) => p.id === activePeriod)!
   const entry = timelineEntries.find((e) => e.periodId === activePeriod)
