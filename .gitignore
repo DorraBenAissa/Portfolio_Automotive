@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Source de recherche privée — jamais publiée
+private-research-source/*.pdf
+private-research-source/*.docx

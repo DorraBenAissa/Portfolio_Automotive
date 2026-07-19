@@ -1,4 +1,7 @@
+import { useState } from 'react'
 import { usePageTitle } from '../hooks/usePageTitle'
+import { bibliography } from '../data/bibliography'
+import type { SourceType } from '../types/source'
 
 const sections = [
   {
@@ -39,8 +42,23 @@ const sections = [
   },
 ]
 
+const bibliographyTypes: (SourceType | 'Tout')[] = [
+  'Tout',
+  'ouvrage',
+  'article scientifique',
+  'site',
+  'vidéo',
+  'constructeur',
+  'norme',
+  'entretien',
+  'production personnelle',
+]
+
 export function EthiqueTransparence() {
   usePageTitle('Éthique et transparence')
+  const [filter, setFilter] = useState<SourceType | 'Tout'>('Tout')
+  const filtered = filter === 'Tout' ? bibliography : bibliography.filter((s) => s.type === filter)
+
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 py-16">
       <p className="text-sm font-medium text-stone-500 dark:text-stone-400 mb-3">Éthique et transparence</p>
@@ -58,6 +76,36 @@ export function EthiqueTransparence() {
           </section>
         ))}
       </div>
+
+      <section className="mt-14">
+        <h2 className="text-lg font-semibold mb-4">Bibliographie</h2>
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {bibliographyTypes.map((t) => (
+            <button
+              key={t}
+              onClick={() => setFilter(t)}
+              className={`rounded-full px-3 py-1 text-xs font-medium ${
+                filter === t ? 'bg-stone-900 text-white dark:bg-white dark:text-stone-900' : 'bg-stone-100 dark:bg-stone-900 text-stone-500'
+              }`}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+        <ul className="rounded-xl border border-stone-200 dark:border-stone-800 divide-y divide-stone-200 dark:divide-stone-800">
+          {filtered.map((s) => (
+            <li key={s.id} className="px-4 py-3 flex items-center justify-between gap-4 text-sm">
+              <span>
+                <span className="font-medium">{s.title}</span> — {s.author} ({s.year})
+              </span>
+              <span className="text-xs text-stone-400 shrink-0">{s.type}</span>
+            </li>
+          ))}
+          {filtered.length === 0 && (
+            <li className="px-4 py-3 text-sm text-stone-400 italic">Aucune source dans cette catégorie pour l’instant.</li>
+          )}
+        </ul>
+      </section>
     </div>
   )
 }
