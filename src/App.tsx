@@ -13,6 +13,9 @@ import { Hypotheses } from './pages/recherche/Hypotheses'
 import { Principes } from './pages/interface-adaptative/Principes'
 import { Commandes } from './pages/interface-adaptative/Commandes'
 import { Scenarios } from './pages/interface-adaptative/Scenarios'
+import { Personas } from './pages/interface-adaptative/Personas'
+import { Prototype } from './pages/interface-adaptative/Prototype'
+import { Evaluation } from './pages/interface-adaptative/Evaluation'
 
 function App() {
   return (
@@ -31,6 +34,9 @@ function App() {
         <Route path="/interface-adaptative/principes" element={<Principes />} />
         <Route path="/interface-adaptative/commandes" element={<Commandes />} />
         <Route path="/interface-adaptative/scenarios" element={<Scenarios />} />
+        <Route path="/interface-adaptative/personas" element={<Personas />} />
+        <Route path="/interface-adaptative/prototype" element={<Prototype />} />
+        <Route path="/interface-adaptative/evaluation" element={<Evaluation />} />
       </Route>
     </Routes>
   )
