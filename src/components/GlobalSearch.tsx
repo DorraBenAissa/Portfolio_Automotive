@@ -38,18 +38,18 @@ export function GlobalSearch() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2 rounded-full border border-stone-300 dark:border-stone-700 px-3 py-1.5 text-xs text-stone-500 dark:text-stone-400 hover:border-stone-500"
+        className="flex items-center gap-2 rounded-full border border-line-2 px-3 py-1.5 text-xs text-muted hover:border-line-2"
         aria-label="Recherche globale"
       >
         <span aria-hidden="true">⌕</span>
         <span className="hidden sm:inline">Rechercher</span>
-        <kbd className="hidden sm:inline text-[10px] rounded border border-stone-300 dark:border-stone-700 px-1">⌘K</kbd>
+        <kbd className="hidden sm:inline text-[10px] rounded border border-line-2 px-1">⌘K</kbd>
       </button>
 
       {open && (
         <div className="fixed inset-0 z-50 bg-black/40 flex items-start justify-center pt-24 px-4" onClick={() => setOpen(false)}>
           <div
-            className="w-full max-w-lg rounded-2xl bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 shadow-xl overflow-hidden"
+            className="w-full max-w-lg rounded-2xl bg-ink border border-line shadow-xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             <input
@@ -57,15 +57,15 @@ export function GlobalSearch() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Rechercher : véhicules, constructeurs, concepts, experts, scénarios, commandes…"
-              className="w-full px-5 py-4 text-sm outline-none bg-transparent border-b border-stone-200 dark:border-stone-800"
+              className="w-full px-5 py-4 text-sm outline-none bg-transparent border-b border-line"
             />
-            <div className="flex flex-wrap gap-1.5 px-5 py-2 border-b border-stone-100 dark:border-stone-900">
+            <div className="flex flex-wrap gap-1.5 px-5 py-2 border-b border-line-2">
               {searchCategories.map((c) => (
                 <button
                   key={c}
                   onClick={() => setCategory(c)}
                   className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${
-                    category === c ? 'bg-stone-900 text-white dark:bg-white dark:text-stone-900' : 'bg-stone-100 dark:bg-stone-900 text-stone-500'
+                    category === c ? 'bg-paper text-ink' : 'bg-surface text-muted'
                   }`}
                 >
                   {c}
@@ -74,19 +74,19 @@ export function GlobalSearch() {
             </div>
             <div className="max-h-80 overflow-y-auto">
               {query.trim() === '' && (
-                <p className="px-5 py-6 text-sm text-stone-400">Commencez à taper pour rechercher sur l’ensemble du site.</p>
+                <p className="px-5 py-6 text-sm text-muted">Commencez à taper pour rechercher sur l’ensemble du site.</p>
               )}
               {query.trim() !== '' && results.length === 0 && (
-                <p className="px-5 py-6 text-sm text-stone-400">Aucun résultat pour « {query} ».</p>
+                <p className="px-5 py-6 text-sm text-muted">Aucun résultat pour « {query} ».</p>
               )}
               {results.map((r) => (
                 <button
                   key={r.id}
                   onClick={() => goTo(r.to)}
-                  className="w-full text-left px-5 py-3 hover:bg-stone-50 dark:hover:bg-stone-900 flex items-center justify-between gap-3"
+                  className="w-full text-left px-5 py-3 hover:bg-surface flex items-center justify-between gap-3"
                 >
                   <span className="text-sm">{r.title}</span>
-                  <span className="text-[11px] text-stone-400 shrink-0">{r.category}</span>
+                  <span className="text-[11px] text-muted shrink-0">{r.category}</span>
                 </button>
               ))}
             </div>

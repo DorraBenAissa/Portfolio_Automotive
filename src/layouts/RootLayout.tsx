@@ -49,11 +49,12 @@ export function RootLayout() {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-stone-900 dark:bg-stone-950 dark:text-stone-100">
-      <header className="sticky top-0 z-40 border-b border-stone-200 dark:border-stone-800 bg-white/90 dark:bg-stone-950/90 backdrop-blur">
+    <div className="min-h-screen flex flex-col bg-ink text-paper">
+      <header className="sticky top-0 z-40 border-b border-line bg-ink/90 backdrop-blur">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 flex items-center justify-between h-16 gap-4">
-          <Link to="/" className="font-semibold tracking-tight text-sm sm:text-base whitespace-nowrap">
-            Dorra Ben Aissa <span className="text-stone-400 font-normal hidden sm:inline">— Automotive UX Research</span>
+          <Link to="/" className="flex items-center gap-2.5 font-display font-semibold tracking-tight text-sm sm:text-base whitespace-nowrap">
+            <span className="h-2.5 w-2.5 rounded-full bg-gradient-accent animate-gradient shrink-0" aria-hidden="true" />
+            Dorra Ben Aissa <span className="text-muted font-normal hidden sm:inline">— Automotive UX Research</span>
           </Link>
 
           <nav className="hidden lg:flex items-center gap-6 text-sm">
@@ -65,12 +66,19 @@ export function RootLayout() {
                 key={l.to}
                 to={l.to}
                 className={({ isActive }) =>
-                  `hover:text-stone-900 dark:hover:text-white transition-colors ${
-                    isActive ? 'text-stone-900 dark:text-white font-medium' : 'text-stone-500 dark:text-stone-400'
+                  `relative pb-1 hover:text-paper transition-colors ${
+                    isActive ? 'text-paper font-medium' : 'text-muted'
                   }`
                 }
               >
-                {l.label}
+                {({ isActive }) => (
+                  <>
+                    {l.label}
+                    {isActive && (
+                      <span className="absolute left-0 right-0 -bottom-0.5 h-0.5 rounded-full bg-gradient-accent" aria-hidden="true" />
+                    )}
+                  </>
+                )}
               </NavLink>
             ))}
           </nav>
@@ -80,14 +88,14 @@ export function RootLayout() {
             <div
               role="group"
               aria-label="Niveau de lecture"
-              className="hidden sm:flex items-center rounded-full border border-stone-300 dark:border-stone-700 p-0.5 text-xs shrink-0"
+              className="hidden sm:flex items-center rounded-full border border-line-2 p-0.5 text-xs shrink-0"
             >
               <button
                 type="button"
                 onClick={() => setMode('synthetique')}
                 aria-pressed={mode === 'synthetique'}
                 className={`px-3 py-1 rounded-full transition-colors ${
-                  mode === 'synthetique' ? 'bg-stone-900 text-white dark:bg-white dark:text-stone-900' : 'text-stone-500'
+                  mode === 'synthetique' ? 'bg-paper text-ink' : 'text-muted'
                 }`}
               >
                 Synthétique
@@ -97,7 +105,7 @@ export function RootLayout() {
                 onClick={() => setMode('recherche')}
                 aria-pressed={mode === 'recherche'}
                 className={`px-3 py-1 rounded-full transition-colors ${
-                  mode === 'recherche' ? 'bg-stone-900 text-white dark:bg-white dark:text-stone-900' : 'text-stone-500'
+                  mode === 'recherche' ? 'bg-paper text-ink' : 'text-muted'
                 }`}
               >
                 Recherche
@@ -106,7 +114,7 @@ export function RootLayout() {
             <button
               type="button"
               onClick={() => setMobileOpen((o) => !o)}
-              className="lg:hidden rounded-full border border-stone-300 dark:border-stone-700 h-9 w-9 flex items-center justify-center"
+              className="lg:hidden rounded-full border border-line-2 h-9 w-9 flex items-center justify-center"
               aria-label="Menu"
               aria-expanded={mobileOpen}
             >
@@ -116,14 +124,14 @@ export function RootLayout() {
         </div>
 
         {mobileOpen && (
-          <nav className="lg:hidden border-t border-stone-200 dark:border-stone-800 px-4 sm:px-6 py-4 max-h-[70vh] overflow-y-auto">
+          <nav className="lg:hidden border-t border-line px-4 sm:px-6 py-4 max-h-[70vh] overflow-y-auto animate-pop">
             <ul className="space-y-1">
               {allMobileItems.map((i) => (
                 <li key={i.to}>
                   <Link
                     to={i.to}
                     onClick={() => setMobileOpen(false)}
-                    className="block py-2 text-sm text-stone-600 dark:text-stone-300"
+                    className="block py-2 text-sm text-dim"
                   >
                     {i.label}
                   </Link>
@@ -139,15 +147,16 @@ export function RootLayout() {
         <Outlet />
       </main>
 
-      <footer className="border-t border-stone-200 dark:border-stone-800 py-10 mt-16">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-stone-500 dark:text-stone-400">
-            <Link to="/contributions" className="hover:text-stone-900 dark:hover:text-white">Contributions</Link>
-            <Link to="/projet-these/evolution" className="hover:text-stone-900 dark:hover:text-white">Projet doctoral</Link>
-            <Link to="/dashboard-recherche" className="hover:text-stone-900 dark:hover:text-white">Dashboard</Link>
-            <Link to="/ethique-et-transparence" className="hover:text-stone-900 dark:hover:text-white">Éthique et transparence</Link>
+      <footer className="pt-10 pb-10 mt-16">
+        <div className="h-px bg-gradient-accent opacity-40" aria-hidden="true" />
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-10">
+          <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-muted">
+            <Link to="/contributions" className="hover:text-paper">Contributions</Link>
+            <Link to="/projet-these/evolution" className="hover:text-paper">Projet doctoral</Link>
+            <Link to="/dashboard-recherche" className="hover:text-paper">Dashboard</Link>
+            <Link to="/ethique-et-transparence" className="hover:text-paper">Éthique et transparence</Link>
           </div>
-          <div className="mt-6 text-xs text-stone-500 dark:text-stone-400 flex flex-col sm:flex-row justify-between gap-2">
+          <div className="mt-6 text-xs text-muted flex flex-col sm:flex-row justify-between gap-2">
             <p>Recherche, analyse et conception : Dorra Ben Aissa · Mémoire de Master 2, 2026</p>
             <p>Aucune affiliation officielle avec les marques ou entreprises mentionnées.</p>
           </div>

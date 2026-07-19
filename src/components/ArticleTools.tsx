@@ -16,7 +16,7 @@ export function ReadingProgress() {
 
   return (
     <div className="fixed top-16 left-0 right-0 h-0.5 bg-transparent z-30" aria-hidden="true">
-      <div className="h-full bg-stone-900 dark:bg-white transition-[width]" style={{ width: `${progress}%` }} />
+      <div className="h-full bg-paper transition-[width]" style={{ width: `${progress}%` }} />
     </div>
   )
 }
@@ -43,7 +43,7 @@ function CiteThisPage({ pageTitle }: { pageTitle: string }) {
     <button
       type="button"
       onClick={cite}
-      className="w-full text-left rounded-lg border border-stone-200 dark:border-stone-800 px-3 py-2 text-xs text-stone-500 dark:text-stone-400 hover:border-stone-400"
+      className="w-full text-left rounded-lg border border-line px-3 py-2 text-xs text-muted hover:border-line-2"
     >
       {copied ? 'Référence copiée ✓' : 'Citer cette page'}
     </button>
@@ -72,16 +72,16 @@ export function ArticleSidebar({ sections, pageTitle }: { sections: TocSection[]
 
   return (
     <aside className="hidden xl:block fixed top-32 right-[calc(50%-38rem)] w-52">
-      <p className="text-xs font-medium uppercase tracking-wide text-stone-400 mb-3">Sommaire</p>
-      <ul className="space-y-2 border-l border-stone-200 dark:border-stone-800">
+      <p className="text-xs font-medium uppercase tracking-wide text-muted mb-3">Sommaire</p>
+      <ul className="space-y-2 border-l border-line">
         {sections.map((s) => (
           <li key={s.id}>
             <a
               href={`#${s.id}`}
               className={`block pl-3 -ml-px border-l-2 text-sm transition-colors ${
                 activeId === s.id
-                  ? 'border-stone-900 dark:border-white text-stone-900 dark:text-white font-medium'
-                  : 'border-transparent text-stone-400 hover:text-stone-600 dark:hover:text-stone-300'
+                  ? 'border-paper text-paper font-medium'
+                  : 'border-transparent text-muted hover:text-dim hover:text-dim'
               }`}
             >
               {s.label}

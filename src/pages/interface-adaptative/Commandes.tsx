@@ -17,9 +17,9 @@ export function Commandes() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-16">
-      <p className="text-sm font-medium text-stone-500 dark:text-stone-400 mb-3">Interface adaptative / Commandes</p>
+      <p className="text-sm font-medium text-muted mb-3">Interface adaptative / Commandes</p>
       <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">Référentiel des commandes</h1>
-      <p className="mt-4 text-stone-600 dark:text-stone-300 max-w-2xl">
+      <p className="mt-4 text-dim max-w-2xl">
         Chaque commande du véhicule est classée selon son niveau de criticité, ce qui détermine sa modalité
         d’interaction recommandée : physique, semi-physique ou tactile.
       </p>
@@ -27,7 +27,7 @@ export function Commandes() {
       <div className="mt-10 flex flex-wrap gap-2">
         <button
           onClick={() => setFilter('all')}
-          className={`rounded-full border px-4 py-2 text-sm font-medium ${filter === 'all' ? 'bg-stone-900 text-white border-stone-900 dark:bg-white dark:text-stone-900' : 'border-stone-300 dark:border-stone-700 text-stone-600 dark:text-stone-300'}`}
+          className={`rounded-full border px-4 py-2 text-sm font-medium ${filter === 'all' ? 'bg-paper text-ink border-paper' : 'border-line-2 text-dim'}`}
         >
           Toutes
         </button>
@@ -35,7 +35,7 @@ export function Commandes() {
           <button
             key={lvl.level}
             onClick={() => setFilter(lvl.level)}
-            className={`rounded-full border px-4 py-2 text-sm font-medium ${filter === lvl.level ? 'bg-stone-900 text-white border-stone-900 dark:bg-white dark:text-stone-900' : 'border-stone-300 dark:border-stone-700 text-stone-600 dark:text-stone-300'}`}
+            className={`rounded-full border px-4 py-2 text-sm font-medium ${filter === lvl.level ? 'bg-paper text-ink border-paper' : 'border-line-2 text-dim'}`}
           >
             Niveau {lvl.level}
           </button>
@@ -46,16 +46,16 @@ export function Commandes() {
         {criticalityLevels
           .filter((l) => filter === 'all' || l.level === filter)
           .map((lvl) => (
-            <div key={lvl.level} className="rounded-lg bg-stone-50 dark:bg-stone-900 px-4 py-2 text-xs text-stone-500 dark:text-stone-400">
-              <span className="font-medium text-stone-700 dark:text-stone-300">{lvl.title}</span>
+            <div key={lvl.level} className="rounded-lg bg-surface px-4 py-2 text-xs text-muted">
+              <span className="font-medium text-dim">{lvl.title}</span>
               {lvl.justifications.length > 0 && ` — ${lvl.justifications.join(', ')}`}
             </div>
           ))}
       </div>
 
-      <div className="mt-6 overflow-x-auto rounded-xl border border-stone-200 dark:border-stone-800">
+      <div className="mt-6 overflow-x-auto rounded-xl border border-line">
         <table className="w-full text-sm">
-          <thead className="bg-stone-50 dark:bg-stone-900 text-left">
+          <thead className="bg-surface text-left">
             <tr>
               {['Commande', 'Catégorie', 'Modalité', 'Sans regard', 'Fréquence', 'Automatisable', 'Validation humaine'].map((h) => (
                 <th key={h} className="px-4 py-2.5 font-medium whitespace-nowrap">{h}</th>
@@ -64,12 +64,12 @@ export function Commandes() {
           </thead>
           <tbody>
             {filtered.map((c) => (
-              <tr key={c.id} className="border-t border-stone-200 dark:border-stone-800">
+              <tr key={c.id} className="border-t border-line">
                 <td className="px-4 py-2.5 font-medium whitespace-nowrap">{c.name}</td>
-                <td className="px-4 py-2.5 text-stone-500">{c.category}</td>
-                <td className="px-4 py-2.5 text-stone-500">{c.recommendedModality}</td>
+                <td className="px-4 py-2.5 text-muted">{c.category}</td>
+                <td className="px-4 py-2.5 text-muted">{c.recommendedModality}</td>
                 <td className="px-4 py-2.5">{c.eyesFree ? '✓' : '—'}</td>
-                <td className="px-4 py-2.5 text-stone-500 whitespace-nowrap">{c.frequency}</td>
+                <td className="px-4 py-2.5 text-muted whitespace-nowrap">{c.frequency}</td>
                 <td className="px-4 py-2.5">{c.automatable ? '✓' : '—'}</td>
                 <td className="px-4 py-2.5">{c.requiresHumanValidation ? '✓' : '—'}</td>
               </tr>
@@ -82,17 +82,17 @@ export function Commandes() {
         <h2 className="text-lg font-semibold mb-6">Matrice humain–machine–logiciel–IA</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {matrixGroups.map((g) => (
-            <div key={g.key} className="rounded-2xl border border-stone-200 dark:border-stone-800 p-5">
+            <div key={g.key} className="rounded-2xl border border-line p-5">
               <h3 className="font-medium mb-3">{g.title}</h3>
               <ul className="space-y-1.5">
                 {humanMachineSoftwareAiMatrix[g.key].map((item) => (
-                  <li key={item} className="text-sm text-stone-600 dark:text-stone-300">{item}</li>
+                  <li key={item} className="text-sm text-dim">{item}</li>
                 ))}
               </ul>
             </div>
           ))}
         </div>
-        <div className="mt-6 rounded-xl border-2 border-stone-900 dark:border-white p-5 text-center">
+        <div className="mt-6 rounded-xl border-2 border-paper p-5 text-center">
           <p className="font-medium">« {humanMachinePrinciple} »</p>
         </div>
       </section>
