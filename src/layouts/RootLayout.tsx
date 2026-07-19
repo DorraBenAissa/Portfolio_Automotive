@@ -1,8 +1,29 @@
-import { Link, NavLink, Outlet } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import { useViewMode } from '../context/ViewModeContext'
+import { NavDropdown } from './NavDropdown'
 
-const navSections: { label: string; to: string }[] = [
-  { label: 'Recherche', to: '/recherche' },
+const rechercheItems = [
+  { label: 'Vue d’ensemble', to: '/recherche' },
+  { label: 'Cadre théorique', to: '/recherche/cadre-theorique' },
+  { label: 'Méthodologie', to: '/recherche/methodologie' },
+  { label: 'Résultats conducteurs', to: '/recherche/resultats-conducteurs' },
+  { label: 'Paroles d’experts', to: '/recherche/experts' },
+  { label: 'Discussion', to: '/recherche/discussion' },
+  { label: 'Hypothèses et validation', to: '/recherche/hypotheses' },
+]
+
+const encyclopedieItems = [
+  { label: 'Évolution historique', to: '/encyclopedie/evolution' },
+  { label: 'Comparaison constructeurs', to: '/encyclopedie/comparaison' },
+]
+
+const interfaceAdaptativeItems = [
+  { label: 'Principes de conception', to: '/interface-adaptative/principes' },
+  { label: 'Référentiel des commandes', to: '/interface-adaptative/commandes' },
+  { label: 'Scénarios adaptatifs', to: '/interface-adaptative/scenarios' },
+  { label: 'Personas', to: '/interface-adaptative/personas' },
+  { label: 'Prototype', to: '/interface-adaptative/prototype' },
+  { label: 'Évaluation critique', to: '/interface-adaptative/evaluation' },
 ]
 
 export function RootLayout() {
@@ -16,19 +37,9 @@ export function RootLayout() {
             Dorra Ben Aissa <span className="text-stone-400 font-normal">— Automotive UX Research</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6 text-sm">
-            {navSections.map((s) => (
-              <NavLink
-                key={s.to}
-                to={s.to}
-                className={({ isActive }) =>
-                  `hover:text-stone-900 dark:hover:text-white transition-colors ${
-                    isActive ? 'text-stone-900 dark:text-white font-medium' : 'text-stone-500 dark:text-stone-400'
-                  }`
-                }
-              >
-                {s.label}
-              </NavLink>
-            ))}
+            <NavDropdown label="Recherche" items={rechercheItems} />
+            <NavDropdown label="Encyclopédie" items={encyclopedieItems} />
+            <NavDropdown label="Interface adaptative" items={interfaceAdaptativeItems} />
           </nav>
           <div
             role="group"
