@@ -140,7 +140,7 @@ export function Home() {
           <div className="relative">
             <h2 className="font-display font-semibold text-lg">Partenariat et projet doctoral</h2>
             <p className="mt-2 text-sm text-dim max-w-xl">
-              Une opportunité de collaboration industrielle (thèse CIFRE) est présentée sur la page
+              Une opportunité de collaboration industrielle (thèse CIFRE, laboratoire LabSIC) est présentée sur la page
               Projet doctoral — aucun partenariat officiel n’est annoncé à ce stade.
             </p>
           </div>

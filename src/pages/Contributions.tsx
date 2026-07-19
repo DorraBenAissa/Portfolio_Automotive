@@ -9,7 +9,7 @@ export function Contributions() {
       <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">Contributions personnelles</h1>
       <p className="mt-4 text-dim max-w-2xl">
         L’ensemble de la recherche, de l’analyse et de la conception présentées sur cette plateforme a été
-        mené par une seule personne.
+        mené par une seule personne, encadrée par Monsieur Benoît Berthou.
       </p>
 
       <div className="mt-6 rounded-xl border-2 border-paper p-5 text-center font-medium">

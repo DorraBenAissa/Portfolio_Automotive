@@ -1,7 +1,6 @@
-import { useState } from 'react'
-import { Link, NavLink, Outlet } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useViewMode } from '../context/ViewModeContext'
-import { NavDropdown } from './NavDropdown'
 import { GlobalSearch } from '../components/GlobalSearch'
 import { ReadingProgress } from '../components/ArticleTools'
 
@@ -35,50 +34,80 @@ const simpleLinks = [
   { label: 'Dashboard', to: '/dashboard-recherche' },
 ]
 
-const allMobileItems = [
+const desktopNavItems = [
+  { label: 'Recherche', to: '/recherche' },
+  { label: 'Encyclopédie', to: '/encyclopedie/evolution' },
+  { label: 'Interface adaptative', to: '/interface-adaptative/principes' },
+]
+
+interface MenuSection {
+  label: string
+  to: string
+  children?: { label: string; to: string }[]
+}
+
+const menuSections: MenuSection[] = [
   { label: 'Accueil', to: '/' },
-  ...rechercheItems.map((i) => ({ ...i, label: `Recherche · ${i.label}` })),
-  ...encyclopedieItems.map((i) => ({ ...i, label: `Encyclopédie · ${i.label}` })),
-  ...interfaceAdaptativeItems.map((i) => ({ ...i, label: `Interface adaptative · ${i.label}` })),
+  { label: 'Recherche', to: '/recherche', children: rechercheItems },
+  { label: 'Encyclopédie', to: '/encyclopedie/evolution', children: encyclopedieItems },
+  { label: 'Interface adaptative', to: '/interface-adaptative/principes', children: interfaceAdaptativeItems },
   ...simpleLinks,
   { label: 'Éthique et transparence', to: '/ethique-et-transparence' },
 ]
 
 export function RootLayout() {
   const { mode, setMode } = useViewMode()
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const firstMenuLinkRef = useRef<HTMLAnchorElement>(null)
+  const hasOpenedMenu = useRef(false)
+
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [location.pathname])
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    if (menuOpen) {
+      hasOpenedMenu.current = true
+      firstMenuLinkRef.current?.focus()
+    } else if (hasOpenedMenu.current) {
+      menuButtonRef.current?.focus()
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [menuOpen])
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [menuOpen])
 
   return (
     <div className="min-h-screen flex flex-col bg-ink text-paper">
-      <header className="sticky top-0 z-40 border-b border-line bg-ink/90 backdrop-blur">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 flex items-center justify-between h-16 gap-4">
+      <header className="sticky top-0 z-50 px-4 sm:px-6 pt-4">
+        <div className="mx-auto max-w-6xl rounded-full border border-line-2 bg-ink/40 backdrop-blur-3xl px-5 sm:px-8 flex items-center justify-between h-16 gap-4">
           <Link to="/" className="flex items-center gap-2.5 font-display font-semibold tracking-tight text-sm sm:text-base whitespace-nowrap">
             <span className="h-2.5 w-2.5 rounded-full bg-gradient-accent animate-gradient shrink-0" aria-hidden="true" />
             Dorra Ben Aissa <span className="text-muted font-normal hidden sm:inline">— Automotive UX Research</span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-6 text-sm">
-            <NavDropdown label="Recherche" items={rechercheItems} />
-            <NavDropdown label="Encyclopédie" items={encyclopedieItems} />
-            <NavDropdown label="Interface adaptative" items={interfaceAdaptativeItems} />
-            {simpleLinks.map((l) => (
+          <nav className="hidden lg:flex items-center gap-5 text-sm">
+            {desktopNavItems.map((l) => (
               <NavLink
                 key={l.to}
                 to={l.to}
                 className={({ isActive }) =>
-                  `relative pb-1 hover:text-paper transition-colors ${
-                    isActive ? 'text-paper font-medium' : 'text-muted'
-                  }`
+                  `link-underline whitespace-nowrap ${isActive ? 'is-active text-paper font-medium' : 'text-muted hover:text-paper'}`
                 }
               >
-                {({ isActive }) => (
-                  <>
-                    {l.label}
-                    {isActive && (
-                      <span className="absolute left-0 right-0 -bottom-0.5 h-0.5 rounded-full bg-gradient-accent" aria-hidden="true" />
-                    )}
-                  </>
-                )}
+                {l.label}
               </NavLink>
             ))}
           </nav>
@@ -111,53 +140,119 @@ export function RootLayout() {
                 Recherche
               </button>
             </div>
+            <div className="h-5 w-px bg-line-2 hidden sm:block" aria-hidden="true" />
             <button
+              ref={menuButtonRef}
               type="button"
-              onClick={() => setMobileOpen((o) => !o)}
-              className="lg:hidden rounded-full border border-line-2 h-9 w-9 flex items-center justify-center"
-              aria-label="Menu"
-              aria-expanded={mobileOpen}
+              onClick={() => setMenuOpen((o) => !o)}
+              aria-expanded={menuOpen}
+              aria-controls="site-menu"
+              className="link-underline text-sm font-medium lg:hidden"
             >
-              {mobileOpen ? '✕' : '☰'}
+              {menuOpen ? 'fermer' : 'menu'}
             </button>
           </div>
         </div>
-
-        {mobileOpen && (
-          <nav className="lg:hidden border-t border-line px-4 sm:px-6 py-4 max-h-[70vh] overflow-y-auto animate-pop">
-            <ul className="space-y-1">
-              {allMobileItems.map((i) => (
-                <li key={i.to}>
-                  <Link
-                    to={i.to}
-                    onClick={() => setMobileOpen(false)}
-                    className="block py-2 text-sm text-dim"
-                  >
-                    {i.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )}
       </header>
+
+      {menuOpen && (
+        <div
+          id="site-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu de navigation"
+          className="fixed inset-0 z-40 bg-ink overflow-y-auto animate-fade-in-up lg:hidden"
+        >
+          <div
+            className="pointer-events-none absolute -top-40 -right-32 h-96 w-96 rounded-full bg-gradient-accent opacity-15 blur-3xl animate-blob"
+            aria-hidden="true"
+          />
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 pb-16">
+            <nav className="flex flex-col">
+              {menuSections.map((s, i) => (
+                <div key={s.to} className="border-b border-line py-5 sm:py-6">
+                  <Link
+                    ref={i === 0 ? firstMenuLinkRef : undefined}
+                    to={s.to}
+                    onClick={() => setMenuOpen(false)}
+                    className={`link-underline font-display text-3xl sm:text-5xl font-semibold tracking-tight ${
+                      location.pathname === s.to ? 'is-active text-gradient' : ''
+                    }`}
+                  >
+                    {s.label}
+                  </Link>
+                  {s.children && (
+                    <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+                      {s.children.map((c) => (
+                        <Link
+                          key={c.to}
+                          to={c.to}
+                          onClick={() => setMenuOpen(false)}
+                          className="link-underline text-sm text-muted hover:text-paper"
+                        >
+                          {c.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </nav>
+          </div>
+        </div>
+      )}
       <ReadingProgress />
 
       <main className="flex-1">
         <Outlet />
       </main>
 
-      <footer className="pt-10 pb-10 mt-16">
-        <div className="h-px bg-gradient-accent opacity-40" aria-hidden="true" />
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-10">
-          <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-muted">
-            <Link to="/contributions" className="hover:text-paper">Contributions</Link>
-            <Link to="/projet-these/evolution" className="hover:text-paper">Projet doctoral</Link>
-            <Link to="/dashboard-recherche" className="hover:text-paper">Dashboard</Link>
-            <Link to="/ethique-et-transparence" className="hover:text-paper">Éthique et transparence</Link>
+      <footer className="relative mt-24 overflow-hidden">
+        <div
+          className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 h-96 w-[36rem] rounded-full bg-gradient-accent opacity-15 blur-3xl animate-blob"
+          aria-hidden="true"
+        />
+
+        <div className="relative border-t border-line">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 py-16 sm:py-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
+            <h2 className="font-display text-4xl sm:text-6xl font-semibold tracking-tight max-w-md">
+              On travaille <span className="text-gradient">la suite</span> ?
+            </h2>
+            <Link
+              to="/projet-these/evolution"
+              className="group relative shrink-0 rounded-full px-8 py-4 text-sm font-medium border border-line-2 hover:border-paper transition-colors"
+            >
+              <span
+                className="pointer-events-none absolute inset-0 rounded-full bg-gradient-accent opacity-0 group-hover:opacity-25 blur-xl transition-opacity"
+                aria-hidden="true"
+              />
+              <span className="relative">Voir le projet doctoral →</span>
+            </Link>
           </div>
-          <div className="mt-6 text-xs text-muted flex flex-col sm:flex-row justify-between gap-2">
-            <p>Recherche, analyse et conception : Dorra Ben Aissa · Mémoire de Master 2, 2026</p>
+        </div>
+
+        <div className="relative border-t border-line">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <Link to="/" className="flex items-center gap-2 font-display font-semibold tracking-tight text-sm w-fit whitespace-nowrap shrink-0">
+              <span className="h-2 w-2 rounded-full bg-gradient-accent animate-gradient shrink-0" aria-hidden="true" />
+              Dorra Ben Aissa <span className="text-muted font-normal">— Automotive UX Research</span>
+            </Link>
+            <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
+              <Link to="/" className="link-underline hover:text-paper">Accueil</Link>
+              <Link to="/recherche" className="link-underline hover:text-paper">Recherche</Link>
+              <Link to="/encyclopedie/evolution" className="link-underline hover:text-paper">Encyclopédie</Link>
+              <Link to="/interface-adaptative/principes" className="link-underline hover:text-paper">Interface adaptative</Link>
+              <Link to="/projet-these/evolution" className="link-underline hover:text-paper">Projet doctoral</Link>
+              <Link to="/contributions" className="link-underline hover:text-paper">Contributions</Link>
+              <Link to="/dashboard-recherche" className="link-underline hover:text-paper">Dashboard</Link>
+              <Link to="/ethique-et-transparence" className="link-underline hover:text-paper">Éthique et transparence</Link>
+            </nav>
+          </div>
+        </div>
+
+        <div className="relative border-t border-line">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 py-6 text-xs text-muted flex flex-col sm:flex-row justify-between gap-2">
+            <p>Recherche, analyse et conception : Dorra Ben Aissa · Mémoire de Master 2, 2026 — Université Sorbonne Paris Nord</p>
             <p>Aucune affiliation officielle avec les marques ou entreprises mentionnées.</p>
           </div>
         </div>

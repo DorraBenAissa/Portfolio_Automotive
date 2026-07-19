@@ -20,6 +20,7 @@ import { ProjetTheseEvolution } from './pages/projet-these/Evolution'
 import { Contributions } from './pages/Contributions'
 import { DashboardRecherche } from './pages/DashboardRecherche'
 import { EthiqueTransparence } from './pages/EthiqueTransparence'
+import { NotFound } from './pages/NotFound'
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
         <Route path="/contributions" element={<Contributions />} />
         <Route path="/dashboard-recherche" element={<DashboardRecherche />} />
         <Route path="/ethique-et-transparence" element={<EthiqueTransparence />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   )
