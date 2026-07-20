@@ -8,6 +8,7 @@ import {
 import { annexes } from '../../data/annexes'
 import { ArticleSidebar } from '../../components/ArticleTools'
 import { usePageTitle } from '../../hooks/usePageTitle'
+import { assetUrl } from '../../lib/assets'
 
 const sections = [
   { id: 'diagramme', label: 'Diagramme méthodologique' },
@@ -32,6 +33,26 @@ export function Methodologie() {
 
       <section id="diagramme" className="mt-12">
         <h2 className="text-lg font-semibold mb-6">Diagramme méthodologique</h2>
+        <figure className="mb-8 overflow-hidden rounded-lg border border-line-2 bg-surface">
+          <img
+            src={assetUrl('processus-ux-automobile.png')}
+            alt="Etapes cles du processus UX automobile"
+            className="h-auto w-full"
+          />
+          <figcaption className="border-t border-line px-4 py-3 text-sm font-medium">
+            Processus UX automobile
+          </figcaption>
+        </figure>
+        <figure className="mb-8 overflow-hidden rounded-lg border border-line-2 bg-surface">
+          <img
+            src={assetUrl('processus-conception-ux-ui.png')}
+            alt="Processus de conception UX et UI automobile"
+            className="h-auto w-full"
+          />
+          <figcaption className="border-t border-line px-4 py-3 text-sm font-medium">
+            Processus de conception UX/UI automobile
+          </figcaption>
+        </figure>
         <ol className="relative border-l border-line pl-6 space-y-6">
           {methodologyDiagram.map((step) => (
             <li key={step.id} className="relative">

@@ -3,6 +3,7 @@ import { drivingScenarios, storyboardSequence, defaultDrivingContext, type Drivi
 import { storyboards } from '../../data/storyboards'
 import { computeInterfaceState } from '../../lib/ruleEngine'
 import { usePageTitle } from '../../hooks/usePageTitle'
+import { assetUrl } from '../../lib/assets'
 
 const storyboardFields: { key: keyof typeof storyboards[number]; stepLabel: string }[] = [
   { key: 'situation', stepLabel: 'Situation' },
@@ -170,6 +171,16 @@ export function Scenarios() {
         <p className="text-sm text-muted mb-6">
           Séquence : {storyboardSequence.map((s) => s.label).join(' → ')}
         </p>
+        <figure className="mb-8 overflow-hidden rounded-lg border border-line-2 bg-surface">
+          <img
+            src={assetUrl('storyboard-cockpit-renault.png')}
+            alt="Storyboard de conception d'un cockpit automobile Renault"
+            className="h-auto w-full"
+          />
+          <figcaption className="border-t border-line px-4 py-3 text-sm font-medium">
+            Storyboard de conception d&apos;un cockpit Renault
+          </figcaption>
+        </figure>
         <div className="space-y-6">
           {storyboards.map((sb) => (
             <article key={sb.id} className="rounded-2xl border border-line p-6 sm:p-8">

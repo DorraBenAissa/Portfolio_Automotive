@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
-import { useViewMode } from '../context/ViewModeContext'
 import { GlobalSearch } from '../components/GlobalSearch'
 import { ReadingProgress } from '../components/ArticleTools'
 
@@ -56,7 +55,6 @@ const menuSections: MenuSection[] = [
 ]
 
 export function RootLayout() {
-  const { mode, setMode } = useViewMode()
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
   const menuButtonRef = useRef<HTMLButtonElement>(null)
@@ -93,9 +91,16 @@ export function RootLayout() {
     <div className="min-h-screen flex flex-col bg-ink text-paper">
       <header className="sticky top-0 z-50 px-4 sm:px-6 pt-4">
         <div className="mx-auto max-w-6xl rounded-full border border-line-2 bg-ink/40 backdrop-blur-3xl px-5 sm:px-8 flex items-center justify-between h-16 gap-4">
-          <Link to="/" className="flex items-center gap-2.5 font-display font-semibold tracking-tight text-sm sm:text-base whitespace-nowrap">
-            <span className="h-2.5 w-2.5 rounded-full bg-gradient-accent animate-gradient shrink-0" aria-hidden="true" />
-            Dorra Ben Aissa <span className="text-muted font-normal hidden sm:inline">— Automotive UX Research</span>
+          <Link to="/" className="flex items-center gap-2.5 whitespace-nowrap">
+            <span className="grid grid-cols-2 gap-0.5 shrink-0" aria-hidden="true">
+              <span className="col-span-2 h-3.5 w-3.5 justify-self-center rounded-full bg-gradient-accent animate-gradient" />
+              <span className="h-3.5 w-3.5 rounded-full bg-gradient-accent animate-gradient" />
+              <span className="h-3.5 w-3.5 rounded-full bg-gradient-accent animate-gradient" />
+            </span>
+            <span className="flex flex-col font-display">
+              <span className="font-semibold tracking-tight text-xl sm:text-2xl">Dorra Ben Aissa</span>
+              <span className="text-muted font-normal text-xs">— Automotive UX Research</span>
+            </span>
           </Link>
 
           <nav className="hidden lg:flex items-center gap-5 text-sm">
@@ -114,32 +119,6 @@ export function RootLayout() {
 
           <div className="flex items-center gap-3">
             <GlobalSearch />
-            <div
-              role="group"
-              aria-label="Niveau de lecture"
-              className="hidden sm:flex items-center rounded-full border border-line-2 p-0.5 text-xs shrink-0"
-            >
-              <button
-                type="button"
-                onClick={() => setMode('synthetique')}
-                aria-pressed={mode === 'synthetique'}
-                className={`px-3 py-1 rounded-full transition-colors ${
-                  mode === 'synthetique' ? 'bg-paper text-ink' : 'text-muted'
-                }`}
-              >
-                Synthétique
-              </button>
-              <button
-                type="button"
-                onClick={() => setMode('recherche')}
-                aria-pressed={mode === 'recherche'}
-                className={`px-3 py-1 rounded-full transition-colors ${
-                  mode === 'recherche' ? 'bg-paper text-ink' : 'text-muted'
-                }`}
-              >
-                Recherche
-              </button>
-            </div>
             <div className="h-5 w-px bg-line-2 hidden sm:block" aria-hidden="true" />
             <button
               ref={menuButtonRef}
@@ -231,11 +210,20 @@ export function RootLayout() {
           </div>
         </div>
 
-        <div className="relative border-t border-line">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-            <Link to="/" className="flex items-center gap-2 font-display font-semibold tracking-tight text-sm w-fit whitespace-nowrap shrink-0">
-              <span className="h-2 w-2 rounded-full bg-gradient-accent animate-gradient shrink-0" aria-hidden="true" />
-              Dorra Ben Aissa <span className="text-muted font-normal">— Automotive UX Research</span>
+        <div className="relative border-t border-line overflow-hidden">
+          <div className="pointer-events-none absolute inset-0 bg-gradient-accent opacity-[0.08]" aria-hidden="true" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-accent" aria-hidden="true" />
+          <div className="relative mx-auto max-w-6xl px-4 sm:px-6 py-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <Link to="/" className="flex items-center gap-2.5 w-fit whitespace-nowrap shrink-0">
+              <span className="grid grid-cols-2 gap-0.5 shrink-0" aria-hidden="true">
+                <span className="col-span-2 h-3.5 w-3.5 justify-self-center rounded-full bg-gradient-accent animate-gradient" />
+                <span className="h-3.5 w-3.5 rounded-full bg-gradient-accent animate-gradient" />
+                <span className="h-3.5 w-3.5 rounded-full bg-gradient-accent animate-gradient" />
+              </span>
+              <span className="flex flex-col font-display">
+                <span className="font-semibold tracking-tight text-xl sm:text-2xl">Dorra Ben Aissa</span>
+                <span className="text-muted font-normal text-xs">— Automotive UX Research</span>
+              </span>
             </Link>
             <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
               <Link to="/" className="link-underline hover:text-paper">Accueil</Link>
