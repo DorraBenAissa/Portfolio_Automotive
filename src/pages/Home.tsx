@@ -5,6 +5,7 @@ import { surveyResults } from '../data/surveyResults'
 import { manufacturerAnalyses } from '../data/manufacturers'
 import { timelinePeriods } from '../data/timeline'
 import { Reveal } from '../components/Reveal'
+import { SphereSculpture } from '../components/SphereSculpture'
 
 const headlineStat = surveyResults.find((r) => r.id === 'urgence-masquage')!
 
@@ -31,22 +32,15 @@ export function Home() {
   usePageTitle('Accueil')
   return (
     <div>
-      <section className="relative overflow-hidden">
-        <div
-          className="pointer-events-none absolute -top-32 -right-40 h-96 w-96 rounded-full bg-gradient-accent opacity-25 blur-3xl animate-blob"
-          aria-hidden="true"
-        />
-        <div
-          className="pointer-events-none absolute top-40 -left-32 h-72 w-72 rounded-full bg-gradient-accent opacity-15 blur-3xl animate-blob"
-          style={{ animationDelay: '-6s' }}
-          aria-hidden="true"
-        />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 pt-16 sm:pt-24 pb-16 animate-fade-in-up">
+      <section className="relative min-h-[clamp(34rem,calc(100svh-7rem),42rem)] overflow-hidden">
+        <SphereSculpture />
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-full bg-ink/30 lg:w-3/5" aria-hidden="true" />
+        <div className="relative z-10 mx-auto flex min-h-[clamp(34rem,calc(100svh-7rem),42rem)] max-w-6xl flex-col justify-center px-4 py-16 sm:px-6 animate-fade-in-up">
           <p className="text-sm font-medium text-muted mb-4">Automotive UX Research</p>
-          <h1 className="font-display text-4xl sm:text-6xl font-semibold tracking-tight max-w-3xl">
+          <h1 className="font-display text-4xl sm:text-6xl font-semibold tracking-tight max-w-3xl lg:max-w-2xl">
             La <span className="text-gradient">simplexité</span> dans les interfaces automobiles
           </h1>
-          <p className="mt-6 text-lg text-dim max-w-2xl">
+          <p className="mt-6 text-lg text-dim max-w-2xl lg:max-w-xl">
             Comment organiser la complexité technologique du véhicule pour la rendre compréhensible,
             utilisable et sécurisée pour le conducteur — recherche, terrain et prototype d’interface
             adaptative par Dorra Ben Aissa.
@@ -68,8 +62,7 @@ export function Home() {
         </div>
       </section>
 
-      <Reveal>
-        <section className="border-y border-line bg-surface">
+      <section className="border-y border-line bg-surface">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 py-6 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
             <div>
               <p className="font-display text-2xl font-semibold">{headlineStat.value}%</p>
@@ -89,7 +82,6 @@ export function Home() {
             </div>
           </div>
         </section>
-      </Reveal>
 
       <Reveal className="mx-auto max-w-6xl px-4 sm:px-6 py-16">
         <blockquote className="font-display text-xl sm:text-2xl font-medium max-w-3xl">
