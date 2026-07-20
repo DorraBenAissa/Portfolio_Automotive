@@ -133,6 +133,16 @@ export const expertMatrix: ExpertMatrixRow[] = [
     status: 'brouillon',
   },
   {
+    theme: "Automobile et smartphone",
+    expertA: "\u00c0 v\u00e9rifier dans le m\u00e9moire - formulation attribu\u00e9e : \u00ab L\u2019interface n\u2019est pas un telephone avec des roues. \u00bb",
+    expertB: placeholder,
+    expertC: placeholder,
+    convergence: placeholder,
+    divergence: placeholder,
+    uxImplication: "Distinguer les usages mobiles de l\u2019interface de conduite et r\u00e9server le tableau de bord aux informations utiles, contextuelles et s\u00e9curitaires.",
+    status: "brouillon",
+  },
+  {
     theme: 'Commandes physiques',
     expertA: 'Les commandes de conduite et la climatisation doivent rester physiques.',
     expertB: 'Les fonctions critiques doivent rester accessibles rapidement.',

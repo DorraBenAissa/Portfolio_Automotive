@@ -89,14 +89,13 @@ export function Experts() {
       <section id="matrice" className="mt-14">
         <h2 className="text-lg font-semibold mb-2">Matrice de synthèse des experts</h2>
         <p className="text-sm text-muted mb-6">
-          Structure prête pour intégration — aucune opinion n’est inventée, toutes les cellules restent en
-          brouillon jusqu’à vérification depuis le mémoire.
+          Les formulations marqu&eacute;es &laquo; &Agrave; v&eacute;rifier &raquo; restent des pistes de r&eacute;vision jusqu&apos;&agrave; leur confirmation dans le m&eacute;moire source.
         </p>
         <div className="overflow-x-auto rounded-xl border border-line">
           <table className="w-full text-sm">
             <thead className="bg-surface text-left">
               <tr>
-                {['Thème', 'Expert A', 'Expert B', 'Expert C', 'Convergence', 'Divergence', 'Implication UX'].map((h) => (
+                {['Thème', 'Expert A', 'Expert B', 'Expert C', 'Convergence', 'Divergence', 'Implication UX', "Statut"].map((h) => (
                   <th key={h} className="px-4 py-2.5 font-medium whitespace-nowrap">{h}</th>
                 ))}
               </tr>
@@ -111,6 +110,15 @@ export function Experts() {
                   <td className="px-4 py-2.5 text-muted italic">{row.convergence}</td>
                   <td className="px-4 py-2.5 text-muted italic">{row.divergence}</td>
                   <td className="px-4 py-2.5 text-muted italic">{row.uxImplication}</td>
+                  <td className="px-4 py-2.5 whitespace-nowrap">
+                    <span className={`inline-flex rounded-full border px-2 py-0.5 text-[11px] font-medium ${
+                      row.status === "v\u00e9rifi\u00e9"
+                        ? "border-emerald-800 bg-emerald-950 text-emerald-300"
+                        : "border-line-2 bg-surface text-muted"
+                    }`}>
+                      {row.status === "v\u00e9rifi\u00e9" ? "V\u00e9rifi\u00e9" : "\u00c0 v\u00e9rifier"}
+                    </span>
+                  </td>
                 </tr>
               ))}
             </tbody>
