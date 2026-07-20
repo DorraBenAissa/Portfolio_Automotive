@@ -104,7 +104,9 @@ export function Experts() {
               {expertMatrix.map((row) => (
                 <tr key={row.theme} className="border-t border-line">
                   <td className="px-4 py-2.5 font-medium whitespace-nowrap">{row.theme}</td>
-                  <td className="px-4 py-2.5 text-muted italic">{row.expertA}</td>
+                  <td className={`px-4 py-2.5 italic ${
+                    row.theme === "Automobile et smartphone" ? "font-medium text-rose-300" : "text-muted"
+                  }`}>{row.expertA}</td>
                   <td className="px-4 py-2.5 text-muted italic">{row.expertB}</td>
                   <td className="px-4 py-2.5 text-muted italic">{row.expertC}</td>
                   <td className="px-4 py-2.5 text-muted italic">{row.convergence}</td>
@@ -114,7 +116,7 @@ export function Experts() {
                     <span className={`inline-flex rounded-full border px-2 py-0.5 text-[11px] font-medium ${
                       row.status === "v\u00e9rifi\u00e9"
                         ? "border-emerald-800 bg-emerald-950 text-emerald-300"
-                        : "border-line-2 bg-surface text-muted"
+                        : "border-rose-800 bg-rose-950/50 text-rose-300"
                     }`}>
                       {row.status === "v\u00e9rifi\u00e9" ? "V\u00e9rifi\u00e9" : "\u00c0 v\u00e9rifier"}
                     </span>
