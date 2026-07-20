@@ -91,6 +91,15 @@ export function Experts() {
         <p className="text-sm text-muted mb-6">
           Les formulations marqu&eacute;es &laquo; &Agrave; v&eacute;rifier &raquo; restent des pistes de r&eacute;vision jusqu&apos;&agrave; leur confirmation dans le m&eacute;moire source.
         </p>
+        <aside className="mb-6 border-l-4 border-rose-500 bg-rose-950/50 px-5 py-4 text-rose-200">
+          <p className="text-xs font-semibold uppercase text-rose-300">Expert A - &Agrave; v&eacute;rifier</p>
+          <blockquote className="mt-2 text-lg font-semibold">
+            &laquo; L&apos;interface n&apos;est pas un t&eacute;l&eacute;phone avec des roues. &raquo;
+          </blockquote>
+          <p className="mt-2 text-sm text-rose-300">
+            Formulation exacte &agrave; confirmer dans le m&eacute;moire source avant validation comme citation.
+          </p>
+        </aside>
         <div className="overflow-x-auto rounded-xl border border-line">
           <table className="w-full text-sm">
             <thead className="bg-surface text-left">
